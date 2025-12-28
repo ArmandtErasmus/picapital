@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<title>Π Capital</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+    --black: #202020;
+    --cream: #f5f0e8;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--black);
+    color: var(--cream);
+    font-family: "Inter", system-ui, -apple-system, Segoe UI, sans-serif;
+}
+
+.page {
+    min-height: 100vh;
+    padding: 10vh 10vw;
+    display: grid;
+    grid-template-rows: 1fr auto 1fr auto 1fr;
+}
+
+h1 {
+    font-size: clamp(3.5rem, 6vw, 6rem);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    margin: 0;
+}
+
+.metric-label {
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    opacity: 0.6;
+    margin-bottom: 0.5rem;
+}
+
+.metric-value {
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 300;
+    color: #00c950;
+}
+
+.about {
+    max-width: 560px;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    opacity: 0.75;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    opacity: 0.45;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <h1>Π&nbsp;CAPITAL</h1>
+
+    <div class="metric">
+        <div class="metric-label">Π-VALUE — SINCE INCEPTION</div>
+        <div class="metric-value" id="piValue">+13.00%</div>
+    </div>
+
+    <div></div>
+
+    <div class="about">
+        Π Capital is a quantitative investment firm specialising in advanced technology and defence markets. 
+        We combine domain expertise in aerospace, cybersecurity, artificial intelligence, and strategic infrastructure 
+        with rigorous mathematical modelling to identify asymmetric opportunities across complex geopolitical and 
+        technological landscapes. Our investment process is engineered for precision, resilience, and long-term capital growth.
+    </div>
+
+    <div class="footer">
+        <div>EST. 2025</div>
+    </div>
+
+</div>
+
+<script>
+const STORAGE_KEY = "pi_capital_value";
+
+let currentValue = parseFloat(localStorage.getItem(STORAGE_KEY)) || 13.00;
+const el = document.getElementById("piValue");
+
+function renderValue() {
+    el.textContent = "+" + currentValue.toFixed(2) + "%";
+}
+
+function updateValue() {
+    const drift = (Math.random() * 0.2 - 0.05);
+    currentValue = Math.max(0, currentValue + drift);
+    localStorage.setItem(STORAGE_KEY, currentValue.toFixed(4));
+
+    el.style.opacity = 0.3;
+    setTimeout(() => {
+        renderValue();
+        el.style.opacity = 1;
+    }, 400);
+}
+
+renderValue();
+setInterval(updateValue, 20000);
+</script>
+
+</body>
+</html>
